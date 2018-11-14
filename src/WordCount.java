@@ -1,8 +1,9 @@
 /*****************
+ * WordCount
  * Author: Christian Duncan
- * Modified by: ...
+ * Modified by: Joey Germain, Megan Forster, Alexandra Martin, and Mike Murphy
  *
- * Reds in a file of text and counts how many unique words are
+ * Reads in a file of text and counts how many unique words are
  * in that text.
  *****************/
 import java.util.Scanner;
