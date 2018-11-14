@@ -83,13 +83,19 @@ public class WordCount {
 	}
 
 	public static int countUniqueWordsSorting(ArrayList<String> words) {
+        // Create, fill, and sort an ArrayList with all words
 		ArrayList<String> set = new ArrayList<String>();
+		for (String w : words) set.add(w);
+		Collections.sort(set);
 		
-		Collections.sort(words); //Not sure if this is what he meant by Array.sort
+		int uniqueWords = set.size();
 		
-		//have to remove indentical words
+		// Remove duplicates -- since set is sorted alphabetically, all are adjacent
+		for (int i = 0; i < set.size() - 1; i++) {
+            if (set.get(i).equals(set.get(i+1))) uniqueWords--;
+		}
 		
-		return set.size();
+		return uniqueWords;
 	}
 
 	public static int countUniqueWordsTree(ArrayList<String> words) {
