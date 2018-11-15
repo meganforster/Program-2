@@ -127,6 +127,7 @@ public class WordCount {
 			wordCount.remove(",");
 			wordCount.remove(":");
 			wordCount.remove("-");
+			//
 		}
 		
 
