@@ -112,26 +112,23 @@ public class WordCount {
 	// Hash Function to count Unique Words 
 	public static int countUniqueWordsHash(ArrayList<String> words) {
 		HashSet<String> wordCountTxt = new HashSet<>();
-
-		// adding in to read in the words in the line of text file 
-		String lineWord = reader.readLine();
 				
 		for (String w : words) {
-			if (!set.contains(w)) {
-				set.add(w);
+			if (!wordCountTxt.contains(w)) {
+				wordCountTxt.add(w);
 			}
-			wordCount.remove(".");
-			wordCount.remove(";");
-			wordCount.remove("?");
-			wordCount.remove("!");
-			wordCount.remove(",");
-			wordCount.remove(":");
-			wordCount.remove("-");
+			wordCountTxt.remove(".");
+			wordCountTxt.remove(";");
+			wordCountTxt.remove("?");
+			wordCountTxt.remove("!");
+			wordCountTxt.remove(",");
+			wordCountTxt.remove(":");
+			wordCountTxt.remove("-");
 			//
 		}
 		
 
-		return set.size();
+		return wordCountTxt.size();
 	}
 
 }
