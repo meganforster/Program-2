@@ -24,11 +24,16 @@ public class WordCount {
 
 	// The main entry point
 	public static void main(String[] args) {
+        
+        //Set test file directory based on IDE -- this is a hack for now
+        boolean eclipse = true;
+        String testDir = eclipse ? "tests/" : "../tests/";
+        
         // Populate file list with all files in tests directory
         try {
-            File test = new File("tests/");
+            File test = new File(testDir);
             for (String f : test.list()) {
-                files.add("tests/" + f);
+                files.add(testDir + f);
             }
         } catch (NullPointerException e) {
             System.err.println("Error: test files not found");
