@@ -18,36 +18,53 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class WordCount {
-	public static String fileName = "words.txt"; // The file to process
+	public static ArrayList<String> files = new ArrayList();
 	public static boolean debugMode = false;
 
 	// The main entry point
 	public static void main(String[] args) {
-		try {
-			ArrayList<String> list = readWords(fileName);
-			long start = System.nanoTime();
-			int total = countUniqueWords(list);
-			long stop = System.nanoTime();
-			System.out.println("countUniqueWords took: "+ (stop-start)+" nanoseconds");
-			
-			start = System.nanoTime();
-			total = countUniqueWordsSorting(list);
-			stop = System.nanoTime();
-			System.out.println("countUniqueWordsSorting took: "+ (stop-start)+" nanoseconds");
-			
-			start = System.nanoTime();
-			total = countUniqueWordsTree(list);
-			stop = System.nanoTime();
-			System.out.println("countUniqueWordsTree took: "+ (stop-start)+" nanoseconds");
-			
-			start = System.nanoTime();
-			total = countUniqueWordsHash(list);
-			stop = System.nanoTime();
-			System.out.println("countUniqueWordsHash took: "+ (stop-start)+" nanoseconds");
-			
-		} catch (IOException e) {
-			System.err.println("Error processing file: " + fileName);
-			System.err.println(e.getMessage());
+		files.add("words.txt");
+		files.add("theBard.txt");
+		files.add("randomBard1.txt");
+		files.add("randomBard2.txt");
+		files.add("randomBard4.txt");
+		files.add("randomBard8.txt");
+		files.add("randomBard16.txt");
+		files.add("randomBard32.txt");
+		files.add("randomBard64.txt");
+		files.add("randomBard128.txt");
+		
+
+		for (String s : files) {
+			System.out.println("Text: "+s);
+
+			try {
+				ArrayList<String> list = readWords(s);
+				long start = System.nanoTime();
+				int total = countUniqueWords(list);
+				long stop = System.nanoTime();
+				System.out.println("countUniqueWords took: " + (stop - start) + " nanoseconds");
+
+				start = System.nanoTime();
+				total = countUniqueWordsSorting(list);
+				stop = System.nanoTime();
+				System.out.println("countUniqueWordsSorting took: " + (stop - start) + " nanoseconds");
+
+				start = System.nanoTime();
+				total = countUniqueWordsTree(list);
+				stop = System.nanoTime();
+				System.out.println("countUniqueWordsTree took: " + (stop - start) + " nanoseconds");
+
+				start = System.nanoTime();
+				total = countUniqueWordsHash(list);
+				stop = System.nanoTime();
+				System.out.println("countUniqueWordsHash took: " + (stop - start) + " nanoseconds");
+
+				System.out.println();
+			} catch (IOException e) {
+				System.err.println("Error processing file: " + s);
+				System.err.println(e.getMessage());
+			}
 		}
 	}
 
@@ -100,18 +117,20 @@ public class WordCount {
 	}
 
 	public static int countUniqueWordsSorting(ArrayList<String> words) {
-        // Create, fill, and sort an ArrayList with all words
+		// Create, fill, and sort an ArrayList with all words
 		ArrayList<String> set = new ArrayList<String>();
-		for (String w : words) set.add(w);
+		for (String w : words)
+			set.add(w);
 		Collections.sort(set);
-		
+
 		int uniqueWords = set.size();
-		
+
 		// Remove duplicates -- since set is sorted alphabetically, all are adjacent
 		for (int i = 0; i < set.size() - 1; i++) {
-            if (set.get(i).equals(set.get(i+1))) uniqueWords--;
+			if (set.get(i).equals(set.get(i + 1)))
+				uniqueWords--;
 		}
-		
+
 		return uniqueWords;
 	}
 
@@ -126,16 +145,16 @@ public class WordCount {
 
 		return set.size();
 	}
-	// Hash Function to count Unique Words 
+
+	// Hash Function to count Unique Words
 	public static int countUniqueWordsHash(ArrayList<String> words) {
 		HashSet<String> wordCountTxt = new HashSet<>();
-				
+
 		for (String w : words) {
 			if (!wordCountTxt.contains(w)) {
 				wordCountTxt.add(w);
 			}
 		}
-		
 
 		return wordCountTxt.size();
 	}
