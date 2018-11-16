@@ -27,11 +27,42 @@ public class WordCount {
 			ArrayList<String> list = readWords(fileName);
 			int total = countUniqueWords(list);
 			System.out.println("Original length: " + list.size());
-			System.out.println("Total unique words: " + total);
+			System.out.println("Total unique words using countUniqueWords: " + total);
 		} catch (IOException e) {
 			System.err.println("Error processing file: " + fileName);
 			System.err.println(e.getMessage());
 		}
+		
+		try {
+			ArrayList<String> list = readWords(fileName);
+			int total = countUniqueWordsSorting(list);
+			System.out.println("Original length: " + list.size());
+			System.out.println("Total unique words using countUniqueWordsSorting: " + total);
+		} catch (IOException e) {
+			System.err.println("Error processing file: " + fileName);
+			System.err.println(e.getMessage());
+		}
+		
+		try {
+			ArrayList<String> list = readWords(fileName);
+			int total = countUniqueWordsTree(list);
+			System.out.println("Original length: " + list.size());
+			System.out.println("Total unique words using countUniqueWordsTree: " + total);
+		} catch (IOException e) {
+			System.err.println("Error processing file: " + fileName);
+			System.err.println(e.getMessage());
+		}
+		
+		try {
+			ArrayList<String> list = readWords(fileName);
+			int total = countUniqueWordsHash(list);
+			System.out.println("Original length: " + list.size());
+			System.out.println("Total unique words using countUniqueWordsHash: " + total);
+		} catch (IOException e) {
+			System.err.println("Error processing file: " + fileName);
+			System.err.println(e.getMessage());
+		}
+		
 	}
 
 	/****
