@@ -26,9 +26,9 @@ public class WordCount {
 	public static void main(String[] args) {
         // Populate file list with all files in tests directory
         try {
-            File test = new File("../tests/");
+            File test = new File("tests/");
             for (String f : test.list()) {
-                files.add("../tests/" + f);
+                files.add("tests/" + f);
             }
         } catch (NullPointerException e) {
             System.err.println("Error: test files not found");
