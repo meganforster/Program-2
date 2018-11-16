@@ -25,44 +25,30 @@ public class WordCount {
 	public static void main(String[] args) {
 		try {
 			ArrayList<String> list = readWords(fileName);
+			long start = System.nanoTime();
 			int total = countUniqueWords(list);
-			System.out.println("Original length: " + list.size());
-			System.out.println("Total unique words using countUniqueWords: " + total);
+			long stop = System.nanoTime();
+			System.out.println("countUniqueWords took: "+ (stop-start)+" nanoseconds");
+			
+			start = System.nanoTime();
+			total = countUniqueWordsSorting(list);
+			stop = System.nanoTime();
+			System.out.println("countUniqueWordsSorting took: "+ (stop-start)+" nanoseconds");
+			
+			start = System.nanoTime();
+			total = countUniqueWordsTree(list);
+			stop = System.nanoTime();
+			System.out.println("countUniqueWordsTree took: "+ (stop-start)+" nanoseconds");
+			
+			start = System.nanoTime();
+			total = countUniqueWordsHash(list);
+			stop = System.nanoTime();
+			System.out.println("countUniqueWordsHash took: "+ (stop-start)+" nanoseconds");
+			
 		} catch (IOException e) {
 			System.err.println("Error processing file: " + fileName);
 			System.err.println(e.getMessage());
 		}
-		
-		try {
-			ArrayList<String> list = readWords(fileName);
-			int total = countUniqueWordsSorting(list);
-			System.out.println("Original length: " + list.size());
-			System.out.println("Total unique words using countUniqueWordsSorting: " + total);
-		} catch (IOException e) {
-			System.err.println("Error processing file: " + fileName);
-			System.err.println(e.getMessage());
-		}
-		
-		try {
-			ArrayList<String> list = readWords(fileName);
-			int total = countUniqueWordsTree(list);
-			System.out.println("Original length: " + list.size());
-			System.out.println("Total unique words using countUniqueWordsTree: " + total);
-		} catch (IOException e) {
-			System.err.println("Error processing file: " + fileName);
-			System.err.println(e.getMessage());
-		}
-		
-		try {
-			ArrayList<String> list = readWords(fileName);
-			int total = countUniqueWordsHash(list);
-			System.out.println("Original length: " + list.size());
-			System.out.println("Total unique words using countUniqueWordsHash: " + total);
-		} catch (IOException e) {
-			System.err.println("Error processing file: " + fileName);
-			System.err.println(e.getMessage());
-		}
-		
 	}
 
 	/****
@@ -148,14 +134,6 @@ public class WordCount {
 			if (!wordCountTxt.contains(w)) {
 				wordCountTxt.add(w);
 			}
-			wordCountTxt.remove(".");
-			wordCountTxt.remove(";");
-			wordCountTxt.remove("?");
-			wordCountTxt.remove("!");
-			wordCountTxt.remove(",");
-			wordCountTxt.remove(":");
-			wordCountTxt.remove("-");
-			//
 		}
 		
 
