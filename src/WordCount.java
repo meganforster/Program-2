@@ -33,7 +33,18 @@ public class WordCount {
 		files.add("randomBard32.txt");
 		files.add("randomBard64.txt");
 		files.add("randomBard128.txt");
-		
+		files.add("words100.txt");
+		files.add("words102400.txt");
+		files.add("words12800.txt");
+		files.add("words1600.txt");
+		files.add("words200.txt");
+		files.add("words204800.txt");
+		files.add("words25600.txt");
+		files.add("words3200.txt");
+		files.add("words400.txt");
+		files.add("words51200.txt");
+		files.add("words6400.txt");
+		files.add("words800.txt");
 
 		for (String s : files) {
 			System.out.println("Text: "+s);

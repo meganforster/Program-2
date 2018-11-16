@@ -1,9 +1,0 @@
-This is just a simple example.
-You can use this initially to be sure your method works.
-But it is not complex enough to make any measurable difference.
-Try using bard example files or the dictionary word list.
-Or better yet, try even larger word sizes - search the internet for
-longer samples.
-This is just another example sentence.
-You can use this to see if duplicates are actually removed.
-Good luck.
