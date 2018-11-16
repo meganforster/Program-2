@@ -16,39 +16,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.io.File;
 
 public class WordCount {
-	public static ArrayList<String> files = new ArrayList();
+	public static ArrayList<String> files = new ArrayList<String>();
 	public static boolean debugMode = false;
 
 	// The main entry point
 	public static void main(String[] args) {
-		files.add("words.txt");
-		files.add("theBard.txt");
-		files.add("randomBard1.txt");
-		files.add("randomBard2.txt");
-		files.add("randomBard4.txt");
-		files.add("randomBard8.txt");
-		files.add("randomBard16.txt");
-		files.add("randomBard32.txt");
-		files.add("randomBard64.txt");
-		files.add("randomBard128.txt");
-		files.add("words100.txt");
-		files.add("words102400.txt");
-		files.add("words12800.txt");
-		files.add("words1600.txt");
-		files.add("words200.txt");
-		files.add("words204800.txt");
-		files.add("words25600.txt");
-		files.add("words3200.txt");
-		files.add("words400.txt");
-		files.add("words51200.txt");
-		files.add("words6400.txt");
-		files.add("words800.txt");
-
+        // Populate file list with all files in tests directory
+        try {
+            File test = new File("../tests/");
+            for (String f : test.list()) {
+                files.add("../tests/" + f);
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Error: test files not found");
+            System.exit(1);
+        }
+        
 		for (String s : files) {
-			System.out.println("Text: "+s);
-
+			System.out.println("Text: " + s);
 			try {
 				ArrayList<String> list = readWords(s);
 				long start = System.nanoTime();
