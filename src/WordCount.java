@@ -17,17 +17,28 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.io.File;
+import java.nio.file.*;
+import java.nio.file.Paths;
 
 public class WordCount {
 	public static ArrayList<String> files = new ArrayList<String>();
 	public static boolean debugMode = false;
-
+    
 	// The main entry point
 	public static void main(String[] args) {
         
-        //Set test file directory based on IDE -- this is a hack for now
-        boolean eclipse = true;
-        String testDir = eclipse ? "tests/" : "../tests/";
+        /* We need to read an input file and create an output file.
+         * Currently the relative paths that work for me don't work
+         * for my teammates so I'm leaving this flag here for them.
+         * If you are running this through the command line, then 
+         * set eclipse to false. If you are running though eclipse,
+         * set it to true. Not sure why this is needed.
+         */
+        boolean eclipse = false;
+        
+        String sep = System.getProperty("file.separator"); // "/" or "\"
+        String testDir = eclipse ? "tests" + sep : ".." + sep + "tests" + sep;      // "tests/" or "../tests/"
+        String outputDir = eclipse ? "results" + sep : ".." + sep + "results" + sep;// "results/" or "../results/"
         
         // Populate file list with all files in tests directory
         try {
@@ -40,6 +51,24 @@ public class WordCount {
             System.exit(1);
         }
         
+        // Create output file
+    
+        // Use current time to create a unique filename
+        long unixTime = System.currentTimeMillis() / 1000L;
+        
+        File outputFile = new File(outputDir + "test " + unixTime + ".csv");
+        
+        try {
+            outputFile.createNewFile();
+        } catch (IOException e) {
+            System.err.println("Error creating output file");
+            System.exit(2);
+        }
+        
+        // Write headers to output file
+        writeToFile(outputFile, "Filename, Array, Sorting, Tree, Hash \n");
+        
+        
 		for (String s : files) {
 			System.out.println("Text: " + s);
 			try {
@@ -47,24 +76,30 @@ public class WordCount {
 				long start = System.nanoTime();
 				int total = countUniqueWords(list);
 				long stop = System.nanoTime();
+				long time1 = stop-start;
 				System.out.println("countUniqueWords took: " + (stop - start) + " nanoseconds");
 
 				start = System.nanoTime();
 				total = countUniqueWordsSorting(list);
 				stop = System.nanoTime();
+				long time2 = stop-start;
 				System.out.println("countUniqueWordsSorting took: " + (stop - start) + " nanoseconds");
 
 				start = System.nanoTime();
 				total = countUniqueWordsTree(list);
 				stop = System.nanoTime();
+				long time3 = stop-start;
 				System.out.println("countUniqueWordsTree took: " + (stop - start) + " nanoseconds");
 
 				start = System.nanoTime();
 				total = countUniqueWordsHash(list);
 				stop = System.nanoTime();
+				long time4 = stop-start;
 				System.out.println("countUniqueWordsHash took: " + (stop - start) + " nanoseconds");
 
 				System.out.println();
+				
+				writeToFile(outputFile, s + "," + time1 + "," + time2 + "," + time3 + "," + time4 + "\n");
 			} catch (IOException e) {
 				System.err.println("Error processing file: " + s);
 				System.err.println(e.getMessage());
@@ -161,6 +196,15 @@ public class WordCount {
 		}
 
 		return wordCountTxt.size();
+	}
+	
+	public static void writeToFile(File f, String s) {
+        try {
+            Files.write(Paths.get(f.getPath()), s.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println("Error writing to output file");
+            System.exit(3);
+        }
 	}
 
 }
