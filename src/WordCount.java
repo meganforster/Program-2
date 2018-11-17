@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.io.File;
 import java.nio.file.*;
-import java.nio.file.Paths;
 
 public class WordCount {
 	public static ArrayList<String> files = new ArrayList<String>();
@@ -50,14 +49,14 @@ public class WordCount {
             System.err.println("Error: test files not found");
             System.exit(1);
         }
-        
-        // Create output file
     
         // Use current time to create a unique filename
         long unixTime = System.currentTimeMillis() / 1000L;
         
+        // Create output file
         File outputFile = new File(outputDir + "test " + unixTime + ".csv");
         
+        //Try to write the file to disk
         try {
             outputFile.createNewFile();
         } catch (IOException e) {
@@ -67,7 +66,6 @@ public class WordCount {
         
         // Write headers to output file
         writeToFile(outputFile, "Filename, Array, Sorting, Tree, Hash \n");
-        
         
 		for (String s : files) {
 			System.out.println("Text: " + s);
@@ -99,7 +97,9 @@ public class WordCount {
 
 				System.out.println();
 				
+				// Write data for this round to the output file
 				writeToFile(outputFile, s + "," + time1 + "," + time2 + "," + time3 + "," + time4 + "\n");
+				
 			} catch (IOException e) {
 				System.err.println("Error processing file: " + s);
 				System.err.println(e.getMessage());
@@ -202,7 +202,7 @@ public class WordCount {
         try {
             Files.write(Paths.get(f.getPath()), s.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.out.println("Error writing to output file");
+            System.err.println("Error writing to output file");
             System.exit(3);
         }
 	}
